@@ -9,7 +9,8 @@ import { LogginService } from '../logging.service';
   selector: 'app-new-account',
   templateUrl: './new-account.component.html',
   styleUrls: ['./new-account.component.css'],
-  providers: [LogginService, AccountService]
+  // providers: [LogginService, AccountService]
+  providers: [LogginService]
 })
 export class NewAccountComponent {
   // @Output() accountAdded = new EventEmitter<{name: string, status: string}>();
