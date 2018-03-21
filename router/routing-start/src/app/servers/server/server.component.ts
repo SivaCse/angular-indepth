@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { ServersService } from '../servers.service';
 
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 
 @Component({
   selector: 'app-server',
@@ -12,7 +12,10 @@ import { ActivatedRoute, Params } from '@angular/router';
 export class ServerComponent implements OnInit {
   server: {id: number, name: string, status: string};
 
-  constructor(private serversService: ServersService, private route: ActivatedRoute) { }
+  constructor(private serversService: ServersService,
+              private route: ActivatedRoute,
+              private router: Router
+            ) { }
 
   ngOnInit() {
     // params returned will be string, need to parse them, '+' converts the params
@@ -24,6 +27,15 @@ export class ServerComponent implements OnInit {
                   this.server = this.serversService.getServer(+params['id']);
                 }
               )
+  }
+
+  onEdit(){
+    // here the route is localhost:3000/servers/1
+    // absolute, telling the entire path from localhost:3000, i.e /servers/1/edit
+    //this.router.navigate(['/servers', this.server.id, 'edit']);
+    // this is relative path, meaning from current route i'e localhost:3000//servers/1
+    // queryParamsHandling => merge to add more params
+    this.router.navigate(['edit'], {relativeTo: this.route, queryParamsHandling: 'preserve'});
   }
 
 }
