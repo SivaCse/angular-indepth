@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Params } from '@angular/router';
 
 @Component({
   selector: 'app-user',
@@ -16,6 +16,16 @@ export class UserComponent implements OnInit {
       id: this.route.snapshot.params['id'],
       name: this.route.snapshot.params['name']
     }
+    // when ever reloading the same component or page instead to re-intialise the component which is aperformance issue
+    // this approach is better
+    this.route.params
+              .subscribe(
+                (params: Params) => {
+                  // when ever params changes this function executes
+                  this.user.id = params['id'];
+                  this.user.name = params['name'];
+                 },
+              );
   }
 
 }
