@@ -14,6 +14,7 @@ export class HomeComponent implements OnInit {
   }
 
   onLoadServers(){
+    // absolute path
     this.router.navigate(['/servers']);
   }
 
