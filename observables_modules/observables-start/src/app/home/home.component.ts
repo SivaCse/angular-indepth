@@ -62,3 +62,6 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.numbersSubscription.unsubscribe();
   }
 }
+
+
+// http://reactivex.io/rxjs/
