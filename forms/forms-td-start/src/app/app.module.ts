@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+// important for working with forms
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
