@@ -1,4 +1,4 @@
-import { Component, ElementRef } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 
 @Component({
@@ -7,12 +7,21 @@ import { NgForm } from '@angular/forms';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+
+  @ViewChild('f') signUpForm: NgForm;
+
   suggestUserName() {
     const suggestedName = 'Superuser';
   }
 
-  onSubmit(form: NgForm){
-    //form: ElementRef => we get the dom element refference
-    console.log(form);
+  // // 1st approach
+  // onSubmit(form: NgForm){
+  //   //form: ElementRef => we get the dom element refference
+  //   console.log(form);
+  // }
+
+  // 2nd approach
+  onSubmit(){
+    console.log(this.signUpForm);
   }
 }
