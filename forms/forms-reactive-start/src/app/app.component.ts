@@ -11,6 +11,7 @@ export class AppComponent implements OnInit {
   signUpForm: FormGroup;
 
   ngOnInit(){
+    // build this as per the structure in template
     this.signUpForm = new FormGroup({
       // to avoid issues during minification and since this is used in htl wrap it in ''
       'username': new FormControl(null),
