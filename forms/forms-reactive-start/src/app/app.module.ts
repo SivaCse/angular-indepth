@@ -1,6 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+// forms module is needed for template driven approach
+//import { FormsModule } from '@angular/forms';
+// for reactive use this
+import { ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
@@ -11,8 +14,9 @@ import { AppComponent } from './app.component';
   ],
   imports: [
     BrowserModule,
-    FormsModule,
-    HttpModule
+    //FormsModule,
+    HttpModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
