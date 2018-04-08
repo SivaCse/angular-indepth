@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
       <!-- [FormGroup] tells angular not infer using default way it does as in template driven approach-->
-      <form [formGroup]="signUpForm">
+      <form [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
         <div class="form-group">
           <label for="username">Username</label>
           <!-- to map component form to this template use formControlName -->
