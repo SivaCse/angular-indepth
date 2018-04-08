@@ -3,8 +3,11 @@
     <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
       <!-- rule of thumb in template driven approach all things should be done in the template it self -->
       <!-- <form (ngSubmit)="onSubmit(f)" #f>  => this oly give form dom object, to get js object of it we need use ngForm-->
+      <!-- to expose group as js object likengForm & ngModel here ngModelGroup -->
       <form (ngSubmit)="onSubmit(f)" #f="ngForm">
-        <div id="user-data">
+        <div  id="user-data"
+              #userData="ngModelGroup"
+              ngModelGroup="userData">
           <div class="form-group">
             <label for="username">Username</label>
             <input type="text"
@@ -34,6 +37,7 @@
           </div>
           <span class="help-block" *ngIf="!email.valid && email.touched">Please enter a valid value!</span>
         </div>
+        <p *ngIf="!userData.valid && userData.touched">User Data is Invalid!</p>
         <div class="form-group">
           <label for="secret">Secret Questions</label>
           <!-- ngModel  => use this for normal without default selection-->
