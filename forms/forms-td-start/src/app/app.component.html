@@ -27,9 +27,12 @@
                     required
                     email
                     name="email"
-                    class="form-control">
+                    class="form-control"
+                    #email="ngModel"
+            >
+            <!-- just like how ngForm expose for form, for elements use ngModel -->
           </div>
-          <p *ngIf="">Please enter a valid value!</p>
+          <span class="help-block" *ngIf="!email.valid && email.touched">Please enter a valid value!</span>
         </div>
         <div class="form-group">
           <label for="secret">Secret Questions</label>
