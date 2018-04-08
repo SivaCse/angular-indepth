@@ -61,10 +61,13 @@ export class AppComponent {
   onSubmit(){
     console.log(this.signUpForm);
     this.submitted = true;
-    this.user.username = this.signUpForm.value.userData.username,
-    this.user.email = this.signUpForm.value.userData.email,
-    this.user.secretQuestion = this.signUpForm.value.secret,
-    this.user.answer = this.signUpForm.value.questionAnswer,
-    this.user.gender = this.signUpForm.value.gender
+    this.user.username = this.signUpForm.value.userData.username;
+    this.user.email = this.signUpForm.value.userData.email;
+    this.user.secretQuestion = this.signUpForm.value.secret;
+    this.user.answer = this.signUpForm.value.questionAnswer;
+    this.user.gender = this.signUpForm.value.gender;
+
+    // to reset the form
+    this.signUpForm.reset();
   }
 }
