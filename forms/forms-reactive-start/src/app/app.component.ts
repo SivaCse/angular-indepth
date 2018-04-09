@@ -24,6 +24,20 @@ export class AppComponent implements OnInit {
       'gender': new FormControl('male'),
       'hobbies': new FormArray([])
     });
+
+    // we can subscribe to statuschanges and value changes which are observables two hooks
+
+    // this.signUpForm.valueChanges.subscribe(
+    //   (value) => {
+    //     console.log(value);
+    //   }
+    // );
+
+    this.signUpForm.statusChanges.subscribe(
+      (value) => {
+        console.log(value);
+      }
+    );
   }
 
   onSubmit(){
