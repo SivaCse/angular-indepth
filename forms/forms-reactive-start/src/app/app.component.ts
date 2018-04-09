@@ -38,10 +38,31 @@ export class AppComponent implements OnInit {
         console.log(value);
       }
     );
+
+    // we can setValue and patchValue like TD
+    // this.signUpForm.setValue({
+    //   'userData': {
+    //     'username': 'Max',
+    //     'email': 'max@test.com'
+    //   },
+    //   'gender': 'male',
+    //   'hobbies': []
+    // });
+
+    this.signUpForm.patchValue({
+      'userData': {
+        'username': 'Max23',
+        'email': 'max@test.com'
+      }
+    });
   }
 
   onSubmit(){
     console.log(this.signUpForm);
+    // reset will will clear even default set radio button if want to set, use the js object notation
+    this.signUpForm.reset({
+      'gender': 'male'
+    });
   }
 
   onAddHobby(){
