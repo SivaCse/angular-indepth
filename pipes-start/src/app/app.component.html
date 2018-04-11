@@ -12,13 +12,14 @@
           </span>
           <strong>{{ server.name }}</strong> |
           {{ server.instanceType | uppercase }} |
-          {{ server.started | date:'fullDate' }}
+          {{ server.started | date:'fullDate' | uppercase}}
         </li>
       </ul>
     </div>
   </div>
 </div>
 
+<!-- while chaining of pipes order executed is from left to right -->
 
 <!-- To view built in pipes
 https://angular.io/api?query=pipe -->
