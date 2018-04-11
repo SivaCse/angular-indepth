@@ -42,4 +42,15 @@ export class AppComponent {
       'list-group-item-danger': server.status === 'critical'
     };
   }
+
+ // updating arrays or objects wont trigger pipes, hence after searching and ckick it does not work. but adding an char i'e input will trigger
+// it can be enforced but it causes performance issue so beware
+  onAddServer(){
+    this.servers.push({
+      instanceType: 'small',
+      name: 'New Server',
+      status: 'stable',
+      started: new Date(15, 1, 2017)
+    });
+  }
 }

@@ -1,7 +1,9 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
+// setting pure to false enforces to recalculated pipes while the seach is done
 @Pipe({
-  name: 'filter'
+  name: 'filter',
+  pure: false
 })
 export class FilterPipe implements PipeTransform {
 
