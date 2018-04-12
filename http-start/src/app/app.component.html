@@ -7,6 +7,7 @@
       <br><br>
 
       <button class="btn btn-primary" (click)="onSave()">Save</button>
+        <button class="btn btn-primary" (click)="onGet()">Get</button>
       <ul class="list-group" *ngFor="let server of servers">
         <li class="list-group-item">{{ server.name }} (ID: {{ server.id }})</li>
       </ul>

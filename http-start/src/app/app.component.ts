@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ServerService } from './servers.service';
+import { Response } from '@angular/http';
 
 @Component({
   selector: 'app-root',
@@ -34,6 +35,19 @@ export class AppComponent {
     this.serverService.storeServers(this.servers)
         .subscribe(
           (response) => { console.log(response); },
+          (error) => { console.log(error); }
+        );
+  }
+
+  onGet(){
+    this.serverService.getServers()
+        .subscribe(
+          (response: Response) => {
+            console.log(response);
+            // json method looks for body property and converts into json for us
+            const data = response.json();
+            console.log(data);
+          },
           (error) => { console.log(error); }
         );
   }

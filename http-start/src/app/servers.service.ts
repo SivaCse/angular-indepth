@@ -17,6 +17,10 @@ export class ServerService {
                             {headers: headers}
                           );
   }
+
+  getServers() {
+    return this.http.get('https://angular-ng-http-e8b30.firebaseio.com/data.json');
+  }
 }
 
 
