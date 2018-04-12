@@ -47,6 +47,7 @@ export class AppComponent {
             // json method looks for body property and converts into json for us
             //const data = response.json();
             console.log(servers);
+            this.servers = servers;
           },
           (error) => { console.log(error); }
         );

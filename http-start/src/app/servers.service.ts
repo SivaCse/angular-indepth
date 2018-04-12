@@ -30,6 +30,9 @@ export class ServerService {
     return this.http.get('https://angular-ng-http-e8b30.firebaseio.com/data.json')
                .map((response: Response) => {
                   const data = response.json();
+                  for(const server of data){
+                    server.name ='Fetched_' + server.name;
+                  }
                   return data;
                });
   }
