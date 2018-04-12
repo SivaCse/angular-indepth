@@ -42,11 +42,11 @@ export class AppComponent {
   onGet(){
     this.serverService.getServers()
         .subscribe(
-          (response: Response) => {
-            console.log(response);
+          (servers: any[]) => {
+            //console.log(response);
             // json method looks for body property and converts into json for us
-            const data = response.json();
-            console.log(data);
+            //const data = response.json();
+            console.log(servers);
           },
           (error) => { console.log(error); }
         );
