@@ -12,7 +12,12 @@ export class ServerService {
 
     // to send headers
     const headers = new Headers({'Content-Type': 'application/json'});
-    return this.http.post('https://angular-ng-http-e8b30.firebaseio.com/data.json',
+    // return this.http.post('https://angular-ng-http-e8b30.firebaseio.com/data.json',
+    //                        servers,
+    //                         {headers: headers}
+    //                       );
+
+    return this.http.put('https://angular-ng-http-e8b30.firebaseio.com/data.json',
                            servers,
                             {headers: headers}
                           );
