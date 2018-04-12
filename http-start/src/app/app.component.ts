@@ -29,3 +29,5 @@ export class AppComponent {
     return Math.round(Math.random() * 10000);
   }
 }
+
+// angular firebase : https://angular-ng-http-e8b30.firebaseio.com/
