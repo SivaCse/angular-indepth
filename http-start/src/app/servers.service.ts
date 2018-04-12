@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
 import 'rxjs/Rx'; // to unlock all operators
 import { Response } from '@angular/http';
+import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class ServerService {
@@ -27,14 +28,21 @@ export class ServerService {
 
   getServers() {
     // return this.http.get('https://angular-ng-http-e8b30.firebaseio.com/data.json');
-    return this.http.get('https://angular-ng-http-e8b30.firebaseio.com/data.json')
+    return this.http.get('https://angular-ng-http-e8b30.firebaseio.com/data')
                .map((response: Response) => {
                   const data = response.json();
                   for(const server of data){
                     server.name ='Fetched_' + server.name;
                   }
                   return data;
-               });
+               })
+               .catch(
+                 (error: Response) => {
+                  //console.log( error );
+                  //  return Observable.throw(error);
+                  return Observable.throw('Something went wrong');
+                 }
+               );
   }
 }
 
