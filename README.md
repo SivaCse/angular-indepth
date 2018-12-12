@@ -65,3 +65,22 @@
     - onClick => (click) = "method()", (input) = "method()"
     - passing data emmited by the event using $event => (click) = "method($event)" (28, section 2)
     - in component method(event: Event) { (<HTMLInputElement>event.target).value }
+
+# Directives
+
+    - Instructions in the DOM
+    - Components are directives with a template
+
+    - Inbuilt Directive's
+        - Structural Directive -> it changes the dom
+            - *ngIf => <p *ngIf="component-property/method()/inline statement"> (ifelse section 2, 34)
+            - *ngFor => <app-server *ngFor="let server of servers"></app-server>
+            - *ngFor with index => <li *ngFor="let detail of details; let i = index">
+
+        - Attribute Directives => only change the element they were placed on
+            - ngStyle => <p [ngStyle]="{'backgroundColor': getColor()}">
+            - ngClass => <p [ngStyle]="{'backgroundColor': getColor()}"
+                            [ngClass]="{online: serverStatus === 'online'}"  > (online will be the class)
+
+    - Custom Directive
+        - @Directive({selector})
