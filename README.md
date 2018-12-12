@@ -32,14 +32,14 @@
 
 # Decorators
 
-    - @Component, @Directive
+    - @Component, @Directive, @Input, @Output
 
 # Components
 
     - @Componene({selector, templateUrl/template, Styleurls, })
     - need to add under "declarations" section of the parent component
     - multiple way's to use selector's instead of <app-root></app-root>, <div app-root> </div>, <div class="app-root"> Section 2, 21 lecture
-    -
+    - All properties inside a component are accessible only inside it
 
 # Templates
 
@@ -54,7 +54,7 @@
     - {{ getMethodName() }}
     - {{ allowServer }}
 
-# Data Binding
+# Binding(Data/property/Events)
 
     - One Way
         - from component to template
@@ -69,6 +69,26 @@
     - Two way Binding
         - [(ngModel)] = "data"
         - to enable two-way binding => https://www.udemy.com/the-complete-guide-to-angular-2/learn/v4/t/lecture/6655876?start=0
+
+    - In Components
+        - @Output()
+            - In Parent Template
+                - <app-cockpit (serverCreated)="onServerAdded($event)" (bpCreated)="onBlueprintAdded($event)"
+    ></app-cockpit>
+            - In Child Component
+                - without Alias => @Output() serverCreated = new EventEmitter<{serverName: string, serverContent: string}>();
+                - with Alias => @Output('bpCreated') bluePrintCreated = new EventEmitter<{serverName: string, serverContent: string}>();
+
+        - @Input()
+            - In Parent Template using alias
+                - <app-server-element *ngFor="let serverElement of serverElements" [srvElement]="serverElement">
+            - In Child Component
+                - @Input('srvElement') element: {type: string, name: string, content: string};
+
+            - In Parent Template without alias
+                - <app-server-element *ngFor="let serverElement of serverElements" [element]="serverElement">
+            - In Child Component
+                - @Input() element: {type: string, name: string, content: string};
 
 # Events
 
