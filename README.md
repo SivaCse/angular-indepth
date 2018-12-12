@@ -9,6 +9,7 @@
 # Generation commands
 
     * ng new my-new-app
+    * ng g component my-component / ng generate parent-folder/component my-component
 
 # Running App
 
@@ -23,3 +24,44 @@
     1. main.ts gets loaded
     2. platformBrowserDynamic().bootstrapModule(AppModule) in main.ts gets loaded
     3. src/app.module gets loaded and all related files to it.
+
+# Components
+
+    - @Componene({selector, templateUrl/template, Styleurls, })
+    - need to add under "declarations" section of the parent component
+    - multiple way's to use selector's instead of <app-root></app-root>, <div app-root> </div>, <div class="app-root"> Section 2, 21 lecture
+    -
+
+# Templates
+
+    - methods also can be called in templates => {{ getMethodName() }}
+    - {{ allowServer }} => <p [innerText]="allowServer"></p> setting the innerText property
+
+# String Interpolation
+
+    - assiging value from component property to template
+    - <p [innerText]="allowServer"></p>
+    - [property] = "data" => <button [disabled]="allowServer">
+    - {{ getMethodName() }}
+    - {{ allowServer }}
+
+# Data Binding
+
+    - One Way
+        - from component to template
+            - String interpolation {{ data }}
+            - Property Binding [property] = "data" => <button [disabled]="allowServer">, in component => allowServer: boolean = true
+
+        - from template to component
+            - Event Binding (event) = "expression" => (click) = "method()"
+
+    - Two way Binding
+        - [(ngModel)] = "data"
+        - to enable two-way binding => https://www.udemy.com/the-complete-guide-to-angular-2/learn/v4/t/lecture/6655876?start=0
+
+# Events
+
+    - https://www.udemy.com/the-complete-guide-to-angular-2/learn/v4/t/lecture/6655990?start=0
+    - onClick => (click) = "method()", (input) = "method()"
+    - passing data emmited by the event using $event => (click) = "method($event)" (28, section 2)
+    - in component method(event: Event) { (<HTMLInputElement>event.target).value }
