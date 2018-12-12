@@ -36,7 +36,7 @@
 
 # Components
 
-    - @Componene({selector, templateUrl/template, Styleurls, })
+    - @Component({selector, templateUrl/template, styleUrls, })
     - need to add under "declarations" section of the parent component
     - multiple way's to use selector's instead of <app-root></app-root>, <div app-root> </div>, <div class="app-root"> Section 2, 21 lecture
     - All properties inside a component are accessible only inside it
