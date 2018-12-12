@@ -118,3 +118,7 @@
     - Images
       -  <img  [src]="recipe.imagePath" alt="{{ recipe.name }}"> => propery binding
       -  <img  src= {{recipe.imagePath}} alt="{{ recipe.name }}">
+
+# Debugging
+
+    - Section 4
