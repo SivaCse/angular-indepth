@@ -5,15 +5,20 @@
 # Install Commands
 
     * sudo npm i -g @angular/cli@latest
+    * npm i --save package  => to save as a production dependency
 
 # Generation commands
 
     * ng new my-new-app
-    * ng g component my-component / ng generate parent-folder/component my-component
+    * ng g c my-component / ng generate component parent-folder/my-component
 
 # Running App
 
     * ng serve => localhost:4200/
+
+# Setting Up Bootstrap
+
+    - https://www.udemy.com/the-complete-guide-to-angular-2/learn/v4/t/lecture/9118764?start=0
 
 # TypeScript
 
@@ -24,6 +29,10 @@
     1. main.ts gets loaded
     2. platformBrowserDynamic().bootstrapModule(AppModule) in main.ts gets loaded
     3. src/app.module gets loaded and all related files to it.
+
+# Decorators
+
+    - @Component, @Directive
 
 # Components
 
@@ -51,6 +60,8 @@
         - from component to template
             - String interpolation {{ data }}
             - Property Binding [property] = "data" => <button [disabled]="allowServer">, in component => allowServer: boolean = true
+            -  <img  [src]="recipe.imagePath" alt="{{ recipe.name }}"> => propery binding
+            -  <img  src= {{recipe.imagePath}} alt="{{ recipe.name }}">
 
         - from template to component
             - Event Binding (event) = "expression" => (click) = "method()"
@@ -84,3 +95,26 @@
 
     - Custom Directive
         - @Directive({selector})
+
+# Creating Model File (our Convinence)
+
+    - Blueprint for objects we create
+    - export class Ingredient {
+        constructor(public name: string, public amount: number){
+            }
+        }
+    - export class Ingredient {
+        public name: String,
+        public amount: number,
+
+        constructor(name: string, amount: number){
+              this.name = name;
+              this.amount = amount;
+            }
+        }
+
+# CookBook
+
+    - Images
+      -  <img  [src]="recipe.imagePath" alt="{{ recipe.name }}"> => propery binding
+      -  <img  src= {{recipe.imagePath}} alt="{{ recipe.name }}">
