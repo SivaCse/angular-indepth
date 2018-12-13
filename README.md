@@ -32,7 +32,7 @@
 
 # Decorators
 
-    - @Component, @Directive, @Input, @Output, @ViewChild
+    - @Component, @Directive, @Input, @Output, @ViewChild, @ContentChild
 
 # Components
 
@@ -40,13 +40,61 @@
     - need to add under "declarations" section of the parent component
     - multiple way's to use selector's instead of <app-root></app-root>, <div app-root> </div>, <div class="app-root"> Section 2, 21 lecture
     - All properties inside a component are accessible only inside it
+    - LifeCycle Hooks (Section 5, 72), we have seperate hooks for views and contents(ng-content)
+        - constructor() {
+            1st
+            console.log('constructor called');
+        }
+
+       -  ngOnChanges(changes: SimpleChange){
+            // only one hook to get an argument
+            // element is this input element
+            //console.log(changes);
+            console.log('ngOnChanges called');
+        }
+
+       -  ngOnInit() {
+           2nd
+            console.log('ngOnInit called');
+        }
+
+        - ngDoCheck() {
+            // for any change detection
+            console.log('ngDoCheck called');
+        }
+
+        - ngAfterContentInit() {
+            // runs when the ng-content is used and the content from parent is inserted into
+            console.log('ngAfterContentInit called');
+        }
+
+        - ngAfterContentChecked() {
+            // gets call after change detection
+            console.log('ngAAfterContentChecked called');
+        }
+
+        - ngAfterViewInit() {
+            // something like dom ready, once all elements loaded then we can access
+            // can access all properties after intialized
+            console.log('AfterViewInit called');
+        }
+
+        - ngAfterViewChecked() {
+            // after the content is checked
+            console.log('ngAfterViewChecked called');
+        }
+
+        - ngOnDestroy() {
+            // called when component destroyed
+            console.log('ngOnDestroy called');
+        }
 
 # Templates
 
     - methods also can be called in templates => {{ getMethodName() }}
     - {{ allowServer }} => <p [innerText]="allowServer"></p> setting the innerText property
 
-# Local References From Templates
+# Local References From Templates And Projecting Content
 
     - Using Local Reference without using @ViewChild
         - In Template
@@ -60,6 +108,39 @@
         - In Component
             - @ViewChild('serverContentInput') serverContentInput: ElementRef;
             - this.serverContentInput.nativeElement.value;
+
+        - Get hold of child component
+            - @ViewChild(CustomerFormComponent) child: CustomerFormComponent;
+            - https://github.com/raj23manj/customer-manager/blob/680ba717dd1825c3db03b5a89a79c80e3da02c3e/src/app/customers/customers.component.ts
+
+    - Passing Code from parent compontent to child like ember yield or Projecting Contents into Components with ng-content
+        - In Parent Template
+            - <app-server-element *ngFor="let serverElement of serverElements"
+                          [srvElement]="serverElement">
+                    <p>
+                    <strong *ngIf="serverElement.type === 'server'" style="color: red">{{ serverElement.content }}</strong>
+                    <em *ngIf="serverElement.type === 'blueprint'">{{ serverElement.content }}</em>
+                    </p>
+             </app-server-element>
+        - In Child component
+            - <div class="panel-body">
+                <ng-content></ng-content>
+              </div>
+
+    - Access ng-content elements using  @ContentChild (Section 5)
+        - In Parent Template
+            - <app-server-element
+                *ngFor="let serverElement of serverElements"
+                [srvElement]="serverElement"
+                [name]="serverElement.name">
+                <p #contentParagraph> =>
+                <strong *ngIf="serverElement.type === 'server'" style="color: red">{{ serverElement.content }}</strong>
+                <em *ngIf="serverElement.type === 'blueprint'">{{ serverElement.content }}</em>
+                </p>
+             </app-server-element>
+
+        - In Child Component
+            - @ContentChild('contentParagraph') paragraph: ElementRef;
 
 # String Interpolation
 
