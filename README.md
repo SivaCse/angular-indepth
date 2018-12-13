@@ -32,11 +32,11 @@
 
 # Decorators
 
-    - @Component, @Directive, @Input, @Output
+    - @Component, @Directive, @Input, @Output, @ViewChild
 
 # Components
 
-    - @Component({selector, templateUrl/template, styleUrls, })
+    - @Component({selector, templateUrl/template, styleUrls, encapsulation})
     - need to add under "declarations" section of the parent component
     - multiple way's to use selector's instead of <app-root></app-root>, <div app-root> </div>, <div class="app-root"> Section 2, 21 lecture
     - All properties inside a component are accessible only inside it
@@ -45,6 +45,21 @@
 
     - methods also can be called in templates => {{ getMethodName() }}
     - {{ allowServer }} => <p [innerText]="allowServer"></p> setting the innerText property
+
+# Local References From Templates
+
+    - Using Local Reference without using @ViewChild
+        - In Template
+            - <input type="text" class="form-control" #serverNameInput>
+            - <button class="btn btn-primary" (click)="onAddServer(serverNameInput)">Add Server</button>
+        - In Component
+            - onAddServer(serverNameInput: HTMLInputElement) {console.log(serverNameInput);}
+
+        - In Template Using @ViewChild
+            <input type="text" class="form-control" #serverContentInput>
+        - In Component
+            - @ViewChild('serverContentInput') serverContentInput: ElementRef;
+            - this.serverContentInput.nativeElement.value;
 
 # String Interpolation
 
@@ -133,11 +148,24 @@
             }
         }
 
+# View Encapsulation
+
+    - Section 5, 67
+    - css rules in each component is restricted to that component only
+    - Angular creates and forces style encapsulation, by creating a unique attribute name. This is the default behaviour
+    - Emulates shadow dom
+    - Values
+      - ViewEncapsulation.None => remove default behaviour, so add css in one component it affects in other componentes
+      - ViewEncapsulation.Native => supports shadow dom, but only few browsers support it
+      - ViewEncapsulation.Emulated => default
+
 # CookBook
 
     - Images
-      -  <img  [src]="recipe.imagePath" alt="{{ recipe.name }}"> => propery binding
-      -  <img  src= {{recipe.imagePath}} alt="{{ recipe.name }}">
+        -  <img  [src]="recipe.imagePath" alt="{{ recipe.name }}"> => propery binding
+        -  <img  src= {{recipe.imagePath}} alt="{{ recipe.name }}">
+    - To Get the types of the elements of templates, use console.log in the component
+        - onAddServer(serverNameInput: HTMLInputElement) { console.log(serverNameInput); }
 
 # Debugging
 
