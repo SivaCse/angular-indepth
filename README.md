@@ -32,7 +32,7 @@
 
 # Decorators
 
-    - @Component, @Directive, @Input, @Output, @ViewChild, @ContentChild
+    - @Component, @Directive, @Input, @Output, @ViewChild, @ContentChild, @HostBinding, @HostListener
 
 # Components
 
@@ -203,14 +203,62 @@
             - *ngIf => <p *ngIf="component-property/method()/inline statement"> (ifelse section 2, 34)
             - *ngFor => <app-server *ngFor="let server of servers"></app-server>
             - *ngFor with index => <li *ngFor="let detail of details; let i = index">
+            - <div [ngSwitch]="value">
+                    <p *ngSwitchCase="5">5</p>
+                    <p *ngSwitchCase="10">10</p>
+                    <p *ngSwitchDefault>Default</p>
+                </div>
+            -  <ng-template [ngIf]="onlyOdd">
+                    <p>Only odd</p>
+                </ng-template>
 
         - Attribute Directives => only change the element they were placed on
             - ngStyle => <p [ngStyle]="{'backgroundColor': getColor()}">
             - ngClass => <p [ngStyle]="{'backgroundColor': getColor()}"
                             [ngClass]="{online: serverStatus === 'online'}"  > (online will be the class)
 
-    - Custom Directive
-        - @Directive({selector})
+    - Custom Directive (Section 7)
+        - @Directive({selector: "[appBasicHighLight]"}) => <p appBasicHighLight> Style</p>
+        - this is be recognised in templates oly by name appBasicHighLight as attribute, if only 'appBasicHighLight' is used then it will be an element
+        - directive has only onInit and onDestroy hooks
+        - Need to mention in the parents @NgModule's declaration to use it, just like new components
+        - To Change a Style by default
+            - // this approach is not advisable
+              ngOnInit() {
+                  this.elementRef.nativeElement.style.backgroundColor = "green";
+              }
+        - Using Renderer to access elements and style
+            - https://angular.io/api/core/Renderer2
+            - In Template's
+                - <p appBetterHighlight [defaultColor]="'yellow'" [highlightColor]="'red'"> Style</p>
+                - Use @Input() in the directive declaration to access the properties
+            - In Directive declarations File
+                - @Directive({selector: '[appBetterHighlight]'})
+                - Use @Input() in the directive declaration to access the properties
+                - Use this to set style or access element
+                    - ngOnInit(){
+                            this.renderer.setStyle(this.elRef.nativeElement, 'background-color', 'yellow');
+                            //this.renderer.setStyle(this.elRef.nativeElement, 'background-color', 'yellow', '!important');
+                        }
+                - @HostBinding()
+                    - use this if need to change stles, renderer is also fine
+                    - in Directive declaraion file
+                        - @HostBinding('style.backgroundColor') backgroundColor: string;
+                        - this.backgroundColor = 'transparent'
+
+                - @HostListener()
+                    - similar to listening events in jquery onhover / on leave but w.r.t to the directive  - - in Directive declaraion file
+                        - @HostListener('mouseenter') mouseover(eventData: Event){
+                            //this.renderer.setStyle(this.elRef.nativeElement, 'background-color', 'blue');
+                            this.backgroundColor = this.highlightColor;
+                        }
+
+            - Custom Structural Directive
+                - In Template
+                    -  <div *appUnless="onlyOdd"></div>
+                - In Directive Definition
+                    - Section 7, 92
+                    - vcRef = view container ref (what to insert, where to insert )
 
 # Creating Model File (our Convinence)
 
