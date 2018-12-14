@@ -291,6 +291,8 @@
 
 # Services & Dependency Injection (Section 9)
 
+    - Either I can go top-down or viceversa or use services to maintain cross component communications
+    - Used to manage Data (Section 111)
     - A service is a normal typescript class
     - Angular DI injects the service
     - Need to tell angular to privide a service, how to create it
@@ -313,6 +315,8 @@
     - Alternate way to set global Service(105), this helps in lazily loaded services by angular for better performance
         - @Injectable({providedIn: 'root'})
           export class MyService { ... }
+    - Passing Data
+      - data change will be triggered from service property where data is addede, if using slice, then need to push changes (https://github.com/raj23manj/recipie-shopping/commit/42d0b828b678cb63eebebca7ce8e5630303ab37e)
 
 # CookBook
 
