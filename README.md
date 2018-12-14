@@ -318,6 +318,57 @@
     - Passing Data
       - data change will be triggered from service property where data is addede, if using slice, then need to push changes (https://github.com/raj23manj/recipie-shopping/commit/42d0b828b678cb63eebebca7ce8e5630303ab37e)
 
+# Routing(section 11)
+
+    - Define in the AppModule
+    - Define routes, using Routes object. pattern appRoutes : Routes = [{path: '', component: '', canActivate: [AuthGuard],
+      canActivateChild: [AuthGuard], data: {any: ''}, redirectTo: '',
+      children: [{path: '', component: ''}]}]
+    - Register defined routes in @NgModule
+      - @NgModule({
+            imports: [
+                // RouterModule.forRoot(appRoutes, {useHash: true})
+                RouterModule.forRoot(appRoutes)
+            ],
+            exports: [
+                RouterModule
+            ]});
+
+    - In Template
+        - <router-outlet></router-outlet> => to make routes work
+        - Links
+            - navigation is not done using  href=""
+            - routerLink => path ot the url, it knows the current path and which component it sits
+                - <a routerLink="/">Home</a>
+                - <a [routerLink]="['/', 'something']">Home</a> => property binding
+            - Relative and Absolute paths(119)
+                - Relative Path => appends path to the end of current path(localhost:4200/servers). Used in nested routes, reloading same page
+                    - <a [routerLink]="['servers']">Home</a> => if current page is localhost:4200/servers then path will be localhost:4200/servers/servers
+                - Absolute Path => appends path to the end of root domain
+                    - <a [routerLink]="['/servers']">Home</a> => if current page is localhost:4200/servers then path will be localhost:4200/servers
+            - routerLinkActive
+                - To add active class to current element
+            - routerLinkActiveOptions
+                - To match excat match of ulr to be active. ex '/users' will match '/' and '/users' to avoid this
+            - Complete example
+                - <li role="presentation" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                    <a routerLink="/">Home</a>
+                </li>
+
+    - Load Route Programtically or from Component
+        - In Component
+            - this.router.navigate dose not know the current path
+            - Basic with absolute path
+                - constructor(private router: Router) { }
+                - this.router.navigate(['/servers']); => an absolute path
+            - Basic with relative path, this.router.navigate dose not know the current path hence we need pass a parameter
+                - constructor(private router: Router, private route: ActivatedRoute) { }
+                - this.router.navigate(['servers'], {relativeTo: this.route}); => an relative path
+            - ActivatedRoute
+                - used to get the currently activated route
+            -  Router
+                - used to navigae around
+
 # CookBook
 
     - Images
