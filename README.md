@@ -33,10 +33,11 @@
 # Decorators
 
     - @Component, @Directive, @Input, @Output, @ViewChild, @ContentChild, @HostBinding, @HostListener
+      @Injectable
 
 # Components
 
-    - @Component({selector, templateUrl/template, styleUrls, encapsulation})
+    - @Component({selector, templateUrl/template, styleUrls, encapsulation, providers})
     - need to add under "declarations" section of the parent component
     - multiple way's to use selector's instead of <app-root></app-root>, <div app-root> </div>, <div class="app-root"> Section 2, 21 lecture
     - All properties inside a component are accessible only inside it
@@ -217,7 +218,7 @@
             - ngClass => <p [ngStyle]="{'backgroundColor': getColor()}"
                             [ngClass]="{online: serverStatus === 'online'}"  > (online will be the class)
 
-    - Custom Directive (Section 7)
+    - Custom Directive (Section 7 & 8)
         - @Directive({selector: "[appBasicHighLight]"}) => <p appBasicHighLight> Style</p>
         - this is be recognised in templates oly by name appBasicHighLight as attribute, if only 'appBasicHighLight' is used then it will be an element
         - directive has only onInit and onDestroy hooks
@@ -287,6 +288,31 @@
       - ViewEncapsulation.None => remove default behaviour, so add css in one component it affects in other componentes
       - ViewEncapsulation.Native => supports shadow dom, but only few browsers support it
       - ViewEncapsulation.Emulated => default
+
+# Services & Dependency Injection (Section 9)
+
+    - A service is a normal typescript class
+    - Angular DI injects the service
+    - Need to tell angular to privide a service, how to create it
+    - set in components provider property to use the service
+        - @Component({providers}) or @NgModule({providers}) => global level
+    - In Component
+        - constructor(loggingService: LoggingService){}
+    - Hierarchical Injector(Section9, 101)
+        - DI is Hierarchical Injector, which means when service is created it will be available for itself and all its child. So need to mention it parent one.
+        - Where All To Metion the Service
+            - AppModule(Highest Level) => will be available every where
+            - AppComponent => AppComponent and it;s child will have refference to service
+            - Any other Component => lowest level, only for that and child and it overrides the parent service if we mention the same service in the child
+            - In child components remove from provider's and angular will load same instance from parent, but keep the constructor to inject
+    - Injecting Services into a Service
+        - To inject a service into another service, the service which needs to be injected should be mentioned at the global level(AppModule), then only  we can inject
+        - use @Injectable() to do, use if anyother service is to be injected here to this current files
+    - Cross Component Communication
+        - Use Event Emmitter's and subscribe them
+    - Alternate way to set global Service(105), this helps in lazily loaded services by angular for better performance
+        - @Injectable({providedIn: 'root'})
+          export class MyService { ... }
 
 # CookBook
 
