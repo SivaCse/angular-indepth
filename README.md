@@ -323,7 +323,7 @@
     - Define in the AppModule
     - Define routes, using Routes object. pattern appRoutes : Routes = [{path: '', component: '', canActivate: [AuthGuard],
       canActivateChild: [AuthGuard], data: {any: ''}, redirectTo: '',
-      children: [{path: '', component: ''}]}]
+      children: [{path: '', component: '', resolve: {}, canDeactivate}]}]
     - Register defined routes in @NgModule
       - @NgModule({
             imports: [
@@ -333,6 +333,46 @@
             exports: [
                 RouterModule
             ]});
+    - Dynamic Routing
+        - { path: ':id/:name', component: UserComponent }
+
+    - Access Route Data in Component(Section 11)
+        - ActivatedRoute used to get the current url
+        - this.route.snapshot.params['id'] => used to access the params, work for first time intialisation only. For subsequent reloads, see below example
+        - Example
+            -   constructor(private route: ActivatedRoute) { }
+                ngOnInit() {
+                    this.user = {
+                        id: this.route.snapshot.params['id'],
+                        name: this.route.snapshot.params['name']
+                    }
+        - Reloading component and getting params
+            - when ever reloading the same component or page instead to re-intialise the component which is aperformance issue
+            - this.route.params => this is a observable
+            - angular handles destroying of this subscription automatically for route observables, if not we would have needed to handle it. No need of Subsription and adding it onDestroy()
+            -   Example
+                -   this.route.params
+                            .subscribe(
+                                (params: Params) => {
+                                // when ever params changes this function executes
+                                this.user.id = params['id'];
+                                this.user.name = params['name'];
+                                },
+                            );
+
+        - Retriving Query Parmas(?query=10) and Fragments(using /users#something)
+            - From Template
+                -  <a
+                    [routerLink]="['/servers', server.id]"
+                    [queryParams]="{allowEdit: server.id === 3 ? '1' : '0'}"
+                    fragment="loading"
+                    href="#"
+                    class="list-group-item"
+                    *ngFor="let server of servers">
+                    {{ server.name }}
+                </a> => localhost:4200/something?allowEdit=1#loading
+            - From Component
+                -  this.router.navigate(['/servers', id, 'edit'], {queryParams: {allowEdit: '1'}, fragment: 'loading'});
 
     - In Template
         - <router-outlet></router-outlet> => to make routes work
