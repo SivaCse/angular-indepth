@@ -577,6 +577,54 @@
     - Observable in Angular 6+
         - 169
 
+# Forms(Section 15)
+
+    - Template Driven Form
+        - Need Tom Import FormsModule
+        - ngModel
+            - This tells angular that this is control for the form
+            - Need to give the name attribute name="username"
+            - <input type="text" ngModel name="username">
+        - ngForm
+            - exposes the form as js object
+            - <form (ngSubmit)="onSubmit(f)" #f="ngForm"></form>
+            - in component @ViewChild('f') signUpForm: NgForm;
+        - Validations
+            - see 181, for links
+            - To display error messages
+                -  <input type="email" id="email" ngModel required email name="email" class="form-control" #email="ngModel">
+                -  <span class="help-block" *ngIf="!email.valid && email.touched">Please enter a valid value!</span>
+        - PropertyBinding for default values
+            - <select id="secret"
+                        [ngModel]="defaultSelection"
+                        name="secret"
+                        class="form-control">
+                    <option value="pet">Your first Pet?</option>
+                    <option value="teacher">Your first teacher?</option>
+                </select>
+        - Groups
+            -  ngModelGroup expose's form as object
+            - ngModelGroup="userData" => in object it will be "userData"
+            -  <div  id="user-data" #userData="ngModelGroup" ngModelGroup="userData">
+               </div>
+            -  <p *ngIf="!userData.valid && userData.touched">User Data is Invalid!</p>
+        - Setting and Patching Form
+            - setValue({}) => this below will set the value of complete form
+                - override's whole form
+                - console log the form and copy paste the structure
+                - this.signUpForm.setValue({});
+            - patchValue({}) => only specific parts of form
+                - patchValue oly available on form, even setValue is available on this
+                - this.signUpForm.form.patchValue({
+                                                    userData: {
+                                                        username: suggestedName
+                                                        },
+                                                    })
+        - Reset a form
+            - this.signUpForm.reset();
+
+    - Reactive Form
+
 # CookBook
 
     - Images
@@ -588,3 +636,9 @@
 # Debugging
 
     - Section 4
+
+# Links
+
+    - Create a angular plugin
+        - https://itnext.io/how-to-build-a-plugin-extensible-application-architecture-in-angular5-736890278f3f
+        - https://stackoverflow.com/questions/41438198/implementing-a-plugin-architecture-plugin-system-pluggable-framework-in-angu
