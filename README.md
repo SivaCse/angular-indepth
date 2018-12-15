@@ -324,7 +324,18 @@
     - Define routes, using Routes object. pattern appRoutes : Routes = [{path: '', component: '', canActivate: [AuthGuard],
       canActivateChild: [AuthGuard], data: {any: ''}, redirectTo: '',
       children: [{path: '', component: '', resolve: {}, canDeactivate}]}]
-    - Register defined routes in @NgModule
+
+    - Redirecting and WildCard Routes
+        - { path: 'not-found', component: ErrorPageComponent, data: {message: 'Page Not Found!'} },
+            -  this.route.data.subscribe((data: Data) => {
+                    this.errorMessage = data['message'];
+                });
+        - { path: '**', redirectTo: '/not-found' } => this should be at the last always
+        - { path: '', redirectTo: '/somewhere-else', pathMatch: 'full' }
+        - -  By default, Angular matches paths by prefix. That means, that the following route will match both /recipes  and just, hence use full like above(134)
+        -   { path: '**', redirectTo: '/not-found' }
+
+    - Register defined routes in @NgModule (135)
       - @NgModule({
             imports: [
                 // RouterModule.forRoot(appRoutes, {useHash: true})
@@ -394,6 +405,8 @@
                                 this.user.name = params['name'];
                                 },
                             );
+            -  Typecast to a number params which is a strign
+                -  +params['id']; => + is to number cast
 
         - Passing Query Parmas(?query=10) and Fragments(using /users#something)
             - From Template
@@ -415,13 +428,62 @@
             - console.log(this.route.snapshot.queryParams);
               console.log(this.route.snapshot.fragment);
 
-            // in that case when on same page accesse, angular handles unsubscriptions here
+              // in that case when on same page accesse, angular handles unsubscriptions here
               this.route.queryParams.subscribe(
               (queryParams: Params) => {
                 this.allowEdit = queryParams['allowEdit'] === '1' ? true : false;
-              }
-              );
+              });
               this.route.fragment.subscribe();
+            -  In Component while dynamic routing
+                - Default is to drop the query params
+                - queryParamsHandling => merge ,to add more params
+                - queryParamsHandling => preserve, to preserve
+                - this.router.navigate(['edit'], {relativeTo: this.route, queryParamsHandling: 'preserve'});
+
+    - Nested Routes
+        - Example
+            - In Template
+                - in parent component here in example server add <router-outlet></router-outlet>
+            - In App.Routes
+                -   { path: 'servers',
+                        //canActivate: [AuthGuard],
+                        canActivateChild: [AuthGuard],
+                        component: ServersComponent,
+                        children:[
+                        { path: ':id', component: ServerComponent, resolve: {server: ServerResolver} },
+                        { path: ':id/edit', component: EditServerComponent, canDeactivate: [CanDeactivateGuard] }
+                    ] }
+
+    - Guards
+        - Executed once a route is loaded or we leave a route
+        - canActivate
+            - canActivate: [service],
+        - canActivateChild(138) => to make child menu visible but auth needed, make only child routes protected
+            - canActivateChild: [service],
+        - canDeactivate(140), control whether to leave a route
+            - if back button clicked on the browser or any other links in the app, ask user if he wants to stay
+            - canDeactivate: [service]
+        - Service Implementations (137, 138, 139)
+
+    - Passing Static data
+        - { path: 'not-found', component: ErrorPageComponent, data: {message: 'Page Not Found!'} },
+        - this.route.data.subscribe((data: Data) => {
+            this.errorMessage = data['message'];
+          });
+    - Passing Dynamic Data =>  with resolve guard
+        - Run some code before a route is rendered(backend fetching or any pre loading)
+        - { path: ':id', component: ServerComponent, resolve: {server: ServerResolver} },
+        -  this.route.data.subscribe((data: Data) => {
+              this.server = data['server'];
+           });
+        - Need to create a resolver(142)
+
+    - Location Strategies
+        - 143
+        - In Production we need to send indexhtml to prevent error
+        - One more option is below
+        - To enable hash mode routing => /#/...
+            - RouterModule.forRoot(appRoutes, {useHash: true})
 
 # CookBook
 
