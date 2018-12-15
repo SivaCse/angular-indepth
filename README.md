@@ -624,6 +624,35 @@
             - this.signUpForm.reset();
 
     - Reactive Form
+        - Customise form as per our needs
+        - Need to import ReactiveFormsModule
+        - <input
+              type="text"
+              id="username"
+              formControlName="username" => important
+              class="form-control">
+              <span class="help-class"
+                    *ngIf="!signUpForm.get('userData.username').valid && signUpForm.get('userData.username').touched"
+              >
+        - this.signUpForm = new FormGroup({
+                // to avoid issues during minification and since this is used in html wrap it in ''
+                'userData': new FormGroup({
+                    // the reason we bind(this) here is coz, this code will be executed by angular and will no know about this
+                    // 'username': new FormControl('default user', [Validators.required, this.forbiddenNames.bind(this)]),
+                    'username': new FormControl(null, [Validators.required, this.forbiddenNames.bind(this)]),
+                    'email': new FormControl(null, [Validators.required, Validators.email], this.forbiddenEmails)
+                }),
+                'gender': new FormControl('male'),
+                'hobbies': new FormArray([])
+            });
+        - Validations
+            - new FormControl('default user', [Validators.required, this.forbiddenNames.bind(this)]),
+            - Custom Validators
+            - Async Validator
+            - we can subscribe to statuschanges and value changes which are observables two hooks
+                - this.signUpForm.statusChanges.subscribe({});
+                - this.signUpForm.valueChanges.subscribe({});
+            - Setting and Patching Similar to Template Driven
 
 # CookBook
 
