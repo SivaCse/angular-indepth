@@ -649,6 +649,7 @@
             - new FormControl('default user', [Validators.required, this.forbiddenNames.bind(this)]),
             - Custom Validators
             - Async Validator
+            - Error Codes => used to sho specific error message, ig name length is more, or needs to be of specific format
             - we can subscribe to statuschanges and value changes which are observables two hooks
                 - this.signUpForm.statusChanges.subscribe({});
                 - this.signUpForm.valueChanges.subscribe({});
