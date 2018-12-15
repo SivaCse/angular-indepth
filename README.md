@@ -485,6 +485,98 @@
         - To enable hash mode routing => /#/...
             - RouterModule.forRoot(appRoutes, {useHash: true})
 
+# Observables(RxJs - Section 13)
+
+    - http://reactivex.io/rxjs/
+    - It is a Data Source
+    - rxjs uses the library => for Angular 6+ "rxjs": "^6.0.0-rc.1"
+    - with Angular6 + to use angular 5 like syntax for observable use rxjs-compact
+
+    - Observer/Subscriber
+        - Handle Data
+        - Handle Error
+        - Handle Completion
+        - Example
+        -   observable.subscribe(
+            () => { console.log('success call') },
+            () => { console.log('error call') },
+            () => { console.log('Completion call') }
+        );
+
+    - Custom Observable
+
+        - numbersSubscription: Subscription;
+        - const myNumbers = Observable.interval(1000)
+                .map(
+                    (data: number) => {
+                    return data * 2 ;
+                    }
+                );
+
+        - this.numbersSubscription = myNumbers.subscribe((number: number) => {
+                //using default utility package of Observable
+                console.log(number);
+            });
+
+        - const myObservable = Observable.create((observer: Observer<string>) => {
+            setTimeout(() => {
+                observer.next('first package'); // next pushes the next data
+            }, 2000);
+
+            setTimeout(() => {
+                observer.next('Second package');
+            }, 4000);
+
+            // after complete or error the 6 seconds call will not be triggered
+
+            setTimeout(() => {
+                observer.error('this does not work'); // pushes error
+            }, 5000);
+
+            // setTimeout(() => {
+            //   observer.complete();
+            // }, 5000);
+
+            setTimeout(() => {
+                observer.next('third package');
+            }, 6000);
+            });
+
+        - customSubscription: Subscription;
+
+        - this.customSubscription = myObservable.subscribe(
+            (data: string) => { console.log(data); },
+            (error: string) => { console.log(error);},
+            () => { console.log('completed'); }
+          );
+
+        - this.customSubscription.unsubscribe();
+          this.numbersSubscription.unsubscribe();
+
+    - Using Subjects
+        - It is an observable, but allows us to push data convinently
+        - It is an Observale and observer
+        - export class UsersService {
+                userActivated = new Subject();
+            }
+        - this.userService.userActivated.next(this.id);
+
+        - this.usersService.userActivated.subscribe(
+            (id: number) => {
+                if(id === 1){
+                this.user1Activated = true;
+                }else if (id === 2){
+                this.user2Activated = true;
+                }
+            }
+            );
+
+    - Operators
+        - it can chain to any observable and manipulate the data, then the subscriber recives it
+
+    - Observable in Angular 6+
+        - 169
+
 # CookBook
 
     - Images
