@@ -11,6 +11,7 @@
 
     * ng new my-new-app
     * ng g c my-component / ng generate component parent-folder/my-component
+    * ng g pipe my-pipe
 
 # Running App
 
@@ -33,7 +34,7 @@
 # Decorators
 
     - @Component, @Directive, @Input, @Output, @ViewChild, @ContentChild, @HostBinding, @HostListener
-      @Injectable
+      @Injectable, @Pipe
 
 # Components
 
@@ -654,6 +655,29 @@
                 - this.signUpForm.statusChanges.subscribe({});
                 - this.signUpForm.valueChanges.subscribe({});
             - Setting and Patching Similar to Template Driven
+
+# Pipes(Section 17)
+
+    - To view built in pipes https://angular.io/api?query=pipe
+    - Transform data in Templates
+    - Need to add in declarations in @NgModel, app.module
+    -  <strong>{{ server.name | shorten: 15 }}</strong>
+    - pure: false => setting pure to false enforces to recalculated pipes while the seach is done, performance issues will come
+    - @Pipe({
+            name: 'shorten'
+            })
+      export class ShortenPipe implements PipeTransform{
+        transform(value: any, limit: number){
+            if(value.length > limit){
+            return value.substr(0, limit) + ' ...';
+            }
+
+            return value;
+            }
+        }
+    - Async Pipe
+        -  appStatus => is async call, api call etc in component
+        -   {{ appStatus | async }}
 
 # CookBook
 

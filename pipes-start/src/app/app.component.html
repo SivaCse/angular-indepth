@@ -1,25 +1,29 @@
 <div class="container">
   <div class="row">
     <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
-      <input type="text" [(ngModel)] = "filteredStatus">
-      <br>
-      <button class="btn btn-primary" (click)="onAddServer()">Add Server</button>
-      <br><br>
-        <h2>App Status: {{ appStatus }}</h2>
+      <input type="text" [(ngModel)]="filteredStatus" /> <br />
+      <button class="btn btn-primary" (click)="onAddServer()">
+        Add Server
+      </button>
+      <br /><br />
+      <h2>App Status: {{ appStatus }}</h2>
       <h2>App Status: {{ appStatus | async }}</h2>
-      <hr>
+      <hr />
       <ul class="list-group">
         <li
           class="list-group-item"
-          *ngFor="let server of servers | filter:filteredStatus:'status' | sort:'name'"
-          [ngClass]="getStatusClasses(server)">
-          <span
-            class="badge">
-            {{ server.status }}
-          </span>
+          *ngFor="
+            let server of (servers
+              | filter: filteredStatus:'status'
+              | sort: 'name')
+          "
+          [ngClass]="getStatusClasses(server)"
+        >
+          <span class="badge"> {{ server.status }} </span>
           <strong>{{ server.name | shorten: 15 }}</strong> |
+          <!-- shorten: 15 : 10 => multiple params -->
           {{ server.instanceType | uppercase | reverse }} |
-          {{ server.started | date:'fullDate' | uppercase}}
+          {{ server.started | date: "fullDate" | uppercase }}
         </li>
       </ul>
     </div>
@@ -28,5 +32,7 @@
 
 <!-- while chaining of pipes order executed is from left to right -->
 
-<!-- To view built in pipes
-https://angular.io/api?query=pipe -->
+<!--
+  To view built in pipes
+  https://angular.io/api?query=pipe
+-->
