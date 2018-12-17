@@ -679,6 +679,128 @@
         -  appStatus => is async call, api call etc in component
         -   {{ appStatus | async }}
 
+# Http & Http Client Requests(Section 18)
+
+    - This is for Angular 4 & 5. For 6+ minor updates are there
+    - angular uses observables for http
+    - as long as we dont subscribe request won't get fired
+    - constructor(private http: Http){}
+    -   const headers = new Headers({'Content-Type': 'application/json'});
+         return this.http.post('https://angular-ng-http-e8b30.firebaseio.com/data.json',
+                            servers,
+                             {headers: headers}
+                           );
+    -   return this.http.put('https://angular-ng-http-e8b30.firebaseio.com/data.json',
+                           servers,
+                            {headers: headers}
+                          );
+                        }
+    -   return this.http.get('https://angular-ng-http-e8b30.firebaseio.com/data.json');
+    -   return this.http.get('https://angular-ng-http-e8b30.firebaseio.com/data')
+               .map((response: Response) => {
+                  const data = response.json();
+                  for(const server of data){
+                    server.name ='Fetched_' + server.name;
+                  }
+                  return data;
+               })
+               .catch(
+                 (error: Response) => {
+                  //console.log( error );
+                  //  return Observable.throw(error);
+                  return Observable.throw('Something went wrong');
+                 }
+               );
+    - Angular 6+
+        - import { map } from 'rxjs/operators';
+        - ....pipe(map(...))
+        - import { catchError } from 'rxjs/operators'
+        - ....pipe(catchError(error => {
+            return throwError(...)
+        }))
+
+# Adding Authentication(Section 20)
+
+    - Using JWT
+    - Authentication using local storage see customer sample app
+
+# Using Angular Modules and Optimizing Apps(Section 21)
+
+    - Modules
+        -  @NgModule({
+            declarations: [
+                components/
+                ],
+            providers:[],
+                imports: [
+                // modules neede for this current module
+                // import routing => RecipesRoutingModule
+                ],
+            exports: [(279)
+                export all the module define here, so that we can import it in the main module
+                Module needs to be declared onc
+                ]
+            });
+        - or we can export specifically  => export class RecipesModule {}
+        - we must not duplicate declarations or declare  pipes, directives, components in more than one modules but can import them module in modules. Declare in App Module
+          error :  Type DropdownDirective is part of the declarations of 2 modules
+        -   mostly need to import in every feature module
+            gives access to ngclass, ngif ....
+            import { CommonModule } from '@angular/common';
+        - you need to position your RecipesModule  prior to the AppRoutingModule in feature module
+            - imports: [
+                    ..., // Other modules
+                    RecipesModule,
+                    AppRoutingModule
+                ]
+            - This is required to ensure that the Catch-all/ wildcard routes work correctly
+        - Shared Modules
+            -
+        - Routing Module
+            - RouterModule.forChild(recipesRoutes)
+
+        - In AppModule
+            - Browser Module should be use only in App module and it contains Common's Module
+            -  @NgModule({
+            declarations: [
+                components/
+                ],
+            providers:[
+                // add service accordinly, if used every where as common service add in app module.
+            ],
+                imports: [
+                // modules neede for this current module
+                ShoppingListModule,
+                ],
+            bootstrap: [
+                    AppComponent
+                ]
+            });
+            - here in app module we need to use BrowserModule it intun contains common module and others
+            - here what ever is added is eager loaded meaning when app is intialise all this is all called.
+            - recipes mould will be lazy loaded
+
+        - Lazy Loading
+            - const appRoutes: Routes = [
+                // {path: '', redirectTo: '/recipes', pathMatch: 'full'},
+                {path: '', component: HomeComponent },
+                // lazy loading recipes module, webpack handles it oly when we enter this route
+                // once added lazy loading restart the server
+                {path: 'recipes', loadChildren: './recipies/recipes.module#RecipesModule'},
+                { path: 'shopping-list', component: ShoppingListComponent }
+                ];
+
+                @NgModule({
+                // makes sure that, lazy loading happens when user is using app it downloads the code to BrowserModule
+                // this can be customised by adding own strtegies
+                imports: [RouterModule.forRoot(appRoutes, {preloadingStrategy: PreloadAllModules})],
+                exports: [RouterModule]
+                })
+
+                export class AppRoutingModule {
+
+                }
+
 # CookBook
 
     - Images
