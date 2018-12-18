@@ -6,6 +6,7 @@
 
     * sudo npm i -g @angular/cli@latest
     * npm i --save package  => to save as a production dependency
+    * ng build --prod --aot
 
 # Generation commands
 
@@ -758,6 +759,7 @@
             -
         - Routing Module
             - RouterModule.forChild(recipesRoutes)
+            - we can declare them anywhere once before visting that route
 
         - In AppModule
             - Browser Module should be use only in App module and it contains Common's Module
@@ -781,6 +783,7 @@
             - recipes mould will be lazy loaded
 
         - Lazy Loading
+            - In AppRoutes
             - const appRoutes: Routes = [
                 // {path: '', redirectTo: '/recipes', pathMatch: 'full'},
                 {path: '', component: HomeComponent },
@@ -800,6 +803,28 @@
                 export class AppRoutingModule {
 
                 }
+
+            - You can add canActivate to the lazy loaded routes but that of course means, that you might load code which in the end can't get accessed anyways. It would be better to check that BEFORE loading the code (286)
+            -  { path: 'recipes', loadChildren: './recipes/recipes.module#RecipesModule', canLoad: [AuthGuard] }
+            -  AuthGuard  should implement the CanLoad interface.
+
+            - How Modules and Service works Using(287)
+                - if a service is provided in app route it is global and a root injector instance is created
+                - if a service is provided to lazy loaded module a seperate instance of chil injector is created with a seperate instance of the service
+                - Hence tw different service instance are provided
+                - Even if share instance with service is used for eager loaded and lay loaded, the above concept applies
+                - In such a case we cannot use a global serive and there is no such use case according to max(dont provide services in shared modules, especially lazy loaded modules are used)
+            - Using Child Injectors
+
+            - Preload Lazy code, when user is browsing the code will be downloaded automatically, in app routes
+                - imports: [RouterModule.forRoot(appRoutes, {preloadingStrategy: PreloadAllModules})],
+
+        - AOT (Ahead Time Of Compilation) & JIT (Just In Time Compilation) (292)
+            - Compile templates, to javascript
+            - JIT compilation is the default during development
+            - AOT compilation used for production
+            - How to use AOT
+                - ng build --prod --aot
 
 # CookBook
 
