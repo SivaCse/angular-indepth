@@ -826,6 +826,82 @@
             - How to use AOT
                 - ng build --prod --aot
 
+# HttpClient
+
+    - https://angular.io/guide/http
+    - import { HttpClient } from '@angular/common/http'
+    - Interceptors
+    - Download percentage
+    - Typed requests
+        - this.hhtpClient.get<Recipe[]>('url').pipe(map())
+    - Request Configuration and Response
+        - const headers =   new HttpHeaders().set('Authoriztion', 'Bearer amnkjkhois');
+        - this.httpClient.get<Recipe[]>('https://ng-recipe-book-12729.firebaseio.com/recipes.json',
+                                  {
+                                    observe: 'body',
+                                    responseType: 'json',
+                                    params: new HttpParams().set('auth', token)
+                                    headers: headers})
+        - observe response will be complete body will be only body, bolb,etc see documentation for more
+      section 23 lecture 296
+        - here we need not do response.json(); it is taken care by defult, in case we want other format like text, string
+
+    -   helpful for seeing progress, uploading and downloading a file, creating request from scratch
+        const req = new HttpRequest('PUT',
+                                'https://ng-recipe-book-12729.firebaseio.com/recipes.json',
+                                this.recipeService.getRecipies(),
+                                {
+                                  reportProgress: true
+                                  params: new HttpParams().set('auth', token)
+                                }
+    -  Events
+        - type 0, type 1,
+        new HttpRequest('PUT','').subscribe((response: HttpEvent<Object>) => {
+                //   console.log(response);
+                //   console.log(response.type === HttpEventType.Response);
+        // });
+
+        );
+    - Header
+        - Set(), append()
+    - Progress
+        - gives feedback about progress
+        - { reportProgress: true }
+
+    - Interceptors
+        - need to mention in providers, like services
+        - in providers
+            - order ins top to down execution
+            - {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}, // multi says that we can have more interceptors
+            - {provide: HTTP_INTERCEPTORS, useClass: LoggingInterceptor, multi: true}
+        - Interceptor going out to fetch
+            -   @Injectable()
+                export class AuthInterceptor implements HttpInterceptor {
+
+                    constructor(private authService: AuthService){}
+
+                    intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+                        // by default requests are immutable(CAN'T EDIT) hevce clone request
+                        console.log('Intercepted!', req);
+                        // we can only read not write, hence we can send an object to clone
+                        const copiedReq = req.clone({params: req.params.set('auth', this.authService.getToken())});
+                        //const copiedReq = req.clone({headers: req.headers.append('', '')});
+                        return next.handle(copiedReq);
+                    }
+                }
+
+        - Intercept Incoming responses (code changed in angular 6do renamed to tap)
+            -   export class LoggingInterceptor implements HttpInterceptor {
+                intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+                        // not consumed, just an itermediate step
+                        return next.handle(req).do(
+                        event => {
+                            console.log('Logging interceptor', event);
+                        }
+                        );
+                    }
+                }
+
 # CookBook
 
     - Images
