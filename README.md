@@ -902,6 +902,16 @@
                     }
                 }
 
+# Angular Universal
+
+    - Different way of rendering app
+    - Server side rendering(with express, rails spring boot etc)
+    - Pre Rendering App on the server
+
+# Adding Offline capabilities
+
+    - By Using a service worker
+
 # CookBook
 
     - Images
