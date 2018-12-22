@@ -13,6 +13,7 @@
     * ng new my-new-app
     * ng g c my-component / ng generate component parent-folder/my-component
     * ng g pipe my-pipe
+    * ng g service my-service
 
 # Running App
 
