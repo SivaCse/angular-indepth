@@ -929,3 +929,6 @@
     - Create a angular plugin
         - https://itnext.io/how-to-build-a-plugin-extensible-application-architecture-in-angular5-736890278f3f
         - https://stackoverflow.com/questions/41438198/implementing-a-plugin-architecture-plugin-system-pluggable-framework-in-angu
+   
+   * Web Sockets
+   - https://grokonez.com/frontend/angular/angular-6/angular-6-websocket-example-with-spring-boot-websocket-server-sockjs-stomp
