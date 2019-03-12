@@ -313,6 +313,7 @@
     - Injecting Services into a Service
         - To inject a service into another service, the service which needs to be injected should be mentioned at the global level(AppModule), then only  we can inject
         - use @Injectable() to do, use if anyother service is to be injected here to this current files
+        - @Injectable({providedIn: 'root'})
     - Cross Component Communication
         - Use Event Emmitter's and subscribe them
     - Alternate way to set global Service(105), this helps in lazily loaded services by angular for better performance
