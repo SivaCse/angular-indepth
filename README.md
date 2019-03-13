@@ -173,8 +173,7 @@
     - In Components
         - @Output()
             - In Parent Template
-                - <app-cockpit (serverCreated)="onServerAdded($event)" (bpCreated)="onBlueprintAdded($event)"
-    ></app-cockpit>
+                - <app-cockpit (serverCreated)="onServerAdded($event)" (bpCreated)="onBlueprintAdded($event)"></app-cockpit>
             - In Child Component
                 - without Alias => @Output() serverCreated = new EventEmitter<{serverName: string, serverContent: string}>();
                 - with Alias => @Output('bpCreated') bluePrintCreated = new EventEmitter<{serverName: string, serverContent: string}>();
@@ -245,7 +244,7 @@
                             //this.renderer.setStyle(this.elRef.nativeElement, 'background-color', 'yellow', '!important');
                         }
                 - @HostBinding()
-                    - use this if need to change stles, renderer is also fine
+                    - use this if need to change styles, renderer is also fine
                     - in Directive declaraion file
                         - @HostBinding('style.backgroundColor') backgroundColor: string;
                         - this.backgroundColor = 'transparent'
@@ -298,7 +297,7 @@
     - Used to manage Data (Section 111)
     - A service is a normal typescript class
     - Angular DI injects the service
-    - Need to tell angular to privide a service, how to create it
+    - Need to tell angular to provide a service, how to create it
     - set in components provider property to use the service
         - @Component({providers}) or @NgModule({providers}) => global level
     - In Component
@@ -835,7 +834,7 @@
     - Interceptors
     - Download percentage
     - Typed requests
-        - this.hhtpClient.get<Recipe[]>('url').pipe(map())
+        - this.httpClient.get<Recipe[]>('url').pipe(map())
     - Request Configuration and Response
         - const headers =   new HttpHeaders().set('Authoriztion', 'Bearer amnkjkhois');
         - this.httpClient.get<Recipe[]>('https://ng-recipe-book-12729.firebaseio.com/recipes.json',
@@ -931,6 +930,10 @@
     - Create a angular plugin
         - https://itnext.io/how-to-build-a-plugin-extensible-application-architecture-in-angular5-736890278f3f
         - https://stackoverflow.com/questions/41438198/implementing-a-plugin-architecture-plugin-system-pluggable-framework-in-angu
-   
-   * Web Sockets
-   - https://grokonez.com/frontend/angular/angular-6/angular-6-websocket-example-with-spring-boot-websocket-server-sockjs-stomp
+
+- Web Sockets
+
+* https://grokonez.com/frontend/angular/angular-6/angular-6-websocket-example-with-spring-boot-websocket-server-sockjs-stomp
+
+- Quick refference
+  - https://codecraft.tv/courses/angular/dependency-injection-and-providers/ngmodule-providers-vs-component-providers-vs-component-viewproviders/
