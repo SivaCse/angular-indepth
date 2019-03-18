@@ -177,6 +177,13 @@
             - In Child Component
                 - without Alias => @Output() serverCreated = new EventEmitter<{serverName: string, serverContent: string}>();
                 - with Alias => @Output('bpCreated') bluePrintCreated = new EventEmitter<{serverName: string, serverContent: string}>();
+                -  onAddBlueprint(nameInput: HTMLInputElement) {
+                    this.blueprintCreated.emit({
+                    serverName: nameInput.value,
+                    serverContent: this.serverContentInput.nativeElement.value
+                    });
+
+}
 
         - @Input()
             - In Parent Template using alias
@@ -937,3 +944,14 @@
 
 - Quick refference
   - https://codecraft.tv/courses/angular/dependency-injection-and-providers/ngmodule-providers-vs-component-providers-vs-component-viewproviders/
+
+# Angular change detection
+
+- https://medium.com/@isaacplmann/ngonchanges-only-runs-when-the-input-change-comes-from-a-template-binding-like-component-8797b759ba0b
+
+constructor(private cd: ChangeDetectorRef) {}
+public someFn() {
+this.someInput = aValue;
+this.cd.detectChanges();
+// ngOnChanges will be called
+}
