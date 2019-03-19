@@ -956,6 +956,8 @@ this.cd.detectChanges();
 // ngOnChanges will be called
 }
 
+- https://alligator.io/angular/change-detection-strategy/
+
 # Promises vs Observables
 
 - https://medium.com/@mpodlasin/promises-vs-observables-4c123c51fe13
