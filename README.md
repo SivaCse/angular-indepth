@@ -947,6 +947,8 @@
 
 # Angular change detection
 
+https://ngdev.space/angular-2-input-property-changes-detection-3ccbf7e366d2
+
 - https://medium.com/@isaacplmann/ngonchanges-only-runs-when-the-input-change-comes-from-a-template-binding-like-component-8797b759ba0b
 
 constructor(private cd: ChangeDetectorRef) {}
