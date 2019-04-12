@@ -818,8 +818,8 @@
 
             - How Modules and Service works Using(287)
                 - if a service is provided in app route it is global and a root injector instance is created
-                - if a service is provided to lazy loaded module a seperate instance of chil injector is created with a seperate instance of the service
-                - Hence tw different service instance are provided
+                - if a service is provided to lazy loaded module a seperate instance of child injector is created with a seperate instance of the service
+                - Hence two different service instance are provided
                 - Even if share instance with service is used for eager loaded and lay loaded, the above concept applies
                 - In such a case we cannot use a global serive and there is no such use case according to max(dont provide services in shared modules, especially lazy loaded modules are used)
             - Using Child Injectors
@@ -958,6 +958,8 @@ this.cd.detectChanges();
 // ngOnChanges will be called
 }
 
+- https://blog.angular-university.io/how-does-angular-2-change-detection-really-work/
+
 - https://alligator.io/angular/change-detection-strategy/
 
 # Promises vs Observables
@@ -986,3 +988,17 @@ There are also powerful operators like retry(), or replay(), ... that are often 
 # Interview questions
 
 - https://www.greycampus.com/blog/programming/top-30-interview-questions-and-answers-on-angular-5
+
+# About Post HTTP client
+
+- https://www.concretepage.com/angular/angular-httpclient-post
+
+# Angular Deployment s3
+
+- https://theinfogrid.com/tech/developers/angular/automate-deployment-of-angular-apps-using-aws-codebuild/
+- https://medium.com/@ibliskavka/aws-angular-stack-automation-b45767bda2ec
+
+# when you are redirecting from spring boot in FE -> Angular
+
+- need to replace the window location itself, because it redirects from there
+- window.location.href = `${this.baseURL}security/login`; // localhost:4200/security/login
