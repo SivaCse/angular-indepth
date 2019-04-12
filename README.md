@@ -993,7 +993,7 @@ There are also powerful operators like retry(), or replay(), ... that are often 
 
 - https://www.concretepage.com/angular/angular-httpclient-post
 
-# Angular Deployment s3
+# Angular Deployment s3(good one)
 
 - https://theinfogrid.com/tech/developers/angular/automate-deployment-of-angular-apps-using-aws-codebuild/
 - https://medium.com/@ibliskavka/aws-angular-stack-automation-b45767bda2ec
